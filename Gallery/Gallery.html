@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body {
+        background-color: rgb(34, 65, 61);
+    }
+    div {
+        position: relative;
+        border: 1px solid black;
+        border-radius: 55px;
+    }
+     #ekran {/* #identyfikator */
+        position:absolute;
+        width: 400px; height: 400px;
+        top: 50px; left: 150px;
+        border-radius: 200px;
+        border-color: rgba(124, 124, 124, 0.35);
+        background-color: rgba(124, 124, 124, 0.09);
+    }
+    #ekran img{
+        width: 400px; height: 400px;
+    }
+
+    .mini {
+    background-color: rgba(0, 0, 0, 0.439);
+    width: 75px; height: 75px;
+    top: 50px; left: 50px;
+    }
+
+    .mini img {
+        width: 65px; height: 65px;
+        margin-left: 5px;
+        margin-top: 5px;
+    }   
+
+</style>
+<script>
+    function Wyswietl(x)
+    {
+        ekran.innerHTML=x.innerHTML;
+    }
+</script>
+</head>
+<body>
+    <div id="ekran"></div>
+</body>
+<script>
+    let num = 5
+    let index_png = 1;
+
+    let card = ['<img src="heart.png">', '<img src="dinosaur.png">', '<img src="rabbit.png">', '<img src="giraffe.png">', '<img src="elephant.png">']
+    for (let j = 0; j < num; j++)
+    {
+        newdiv = document.createElement('div');
+            divIdName = 'a' + j;
+            newdiv.setAttribute('id', divIdName);
+            newdiv.className = 'mini';
+
+            newdiv.innerHTML = card[j];
+            document.body.appendChild(newdiv);
+            newdiv.addEventListener('click', function(){Wyswietl(this);});
+    }
+</script>
+
+</html>
