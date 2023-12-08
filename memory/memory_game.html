@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #score {
+        position: absolute;
+        align-content: center;
+        width: 100px;
+        height: 20px;
+        border: 0px;
+    }
+    div {
+        position:absolute;
+        width: 100px; height: 100px;
+        border: 1px solid black;
+        background-color: rgb(193, 226, 226);
+        border-radius: 5px;
+    }
+    .mini {
+    width: 75px; height: 75px;
+    top: 50px; left: 50px;
+    }
+
+    .mini img {
+        width: 55px; height: 55px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    body {
+        background-color: rgb(34, 65, 61);
+    }
+
+    h1{
+        align-content: normal;
+        position: relative;
+        margin-left: 600px;
+        font-size: 90px;
+        color: aliceblue; 
+        font-family:'Trebuchet MS', sans-serif; font-style: oblique;
+        white-space: nowrap; 
+        
+    }
+    h2{
+
+        position: relative;
+        margin-left: 600px;
+        font-size: 30px; 
+        color: aliceblue; 
+        font-family:'Trebuchet MS', sans-serif; font-style: oblique;
+        width: 200px;
+        max-width: 200px;
+        white-space: nowrap; 
+    }
+    
+    #button {
+        background-color: rgb(192, 201, 186);
+        font-size: 20px; 
+        position: relative;
+        margin-left: 5px;
+    }
+
+</style>
+<script>
+    function Mix_up_position()
+    {
+        let SetTabPosition = []
+        for (let t = 0; t < num; t++)
+        {
+            SetTabPosition[t] = 0;
+        }
+        let i=0;
+        let j=0;
+
+        while (i < num)
+        {        
+            x = Math.floor(Math.random()*(num));
+
+            if (SetTabPosition[x] == 0)
+            {
+                TabOb[i].style.left = TabPosition[x][0];
+                TabOb[i].style.top = TabPosition[x][1];
+                SetTabPosition[x] = 1;
+                i++;
+            }          
+        }
+        Show_all()
+    }
+    function Hide_all()
+    {
+        for (let i = 0; i < num; i++)
+        {
+            TabOb[i].innerHTML = '<img src="reverse.png">';
+        }
+    }
+    function Show(x)
+    {
+        for (let i = 0; i < num; i++)
+        {
+            if (TabOb[i] == x)
+            {
+                x.innerHTML = TabImg[i];
+            }
+        }
+    }
+
+    function Show_all()
+    {
+        for (let i = 0; i < num; i++)
+        {
+            TabOb[i].innerHTML = TabImg[i];
+        }
+    }
+
+    let first_x = null;
+
+    function Play(x)
+    {   
+        if (first_x == null)
+        {
+            Hide_all();
+            Show(x);
+            first_x = x;
+        }
+        else
+        {  
+            Show(x)
+            if (x != first_x)
+            {
+                turnCounter++;
+                document.getElementById("score").innerHTML = 'Turn counter: '+turnCounter;
+                if (x.innerHTML == first_x.innerHTML)
+                {
+                    first_x.style.visibility = 'hidden';
+                    x.style.visibility = 'hidden';
+                    visible_card++;
+                    if (visible_card >= row*(row/2))
+                    {
+                        document.getElementById("score").innerHTML = "You win! Done in "+turnCounter+" turns";
+                    }
+                }
+            }    
+            first_x = null;
+        }
+    }
+    function New_Game()
+    {   
+        for (let i = 0; i < num; i++)
+        {
+            TabOb[i].innerHTML = TabImg[i];
+            TabOb[i].style.visibility = 'visible'
+        }
+        document.getElementById("score").innerHTML = 'Turn counter: '+0;
+        turnCounter = 0;;
+    }
+
+</script>
+<body>
+    <input type="button" id="button" value="Zakryj" onclick="Hide_all()">
+    <input type="button" id="button" value="Pokaz" onclick="Show_all()">
+    <input type="button" id="button" value="Mieszaj" onclick="Mix_up_position()">
+    <input type="button" id="button" value="Resetuj" onclick="New_Game()">
+    
+    <h1 id="memory">Memory</h1>
+    <h2 id="score">Turn counter: 0</h2>
+
+</body>
+<script>
+    let turnCounter = 0;
+    let visible_card = 0;
+    let row = 6;
+    let num = row*row
+    let index = 1, index_png = 1;
+    let value_png = 0;
+
+    let TabImg = [], TabPosition = [];
+
+    for (let j = 0; j < row; j++)
+    {
+        for (let i = 0; i < row; i++)
+        {   
+            //Tworzenie kart - po dwie pary
+            if (value_png >= 2)
+            {
+                value_png = 0
+                index_png++;
+            }
+
+            newdiv = document.createElement('div');
+            divIdName = 'a' + j + i;
+            newdiv.setAttribute('id', divIdName);
+            newdiv.className = 'mini';
+            newdiv.style.left = 75 + 80 * i + 'px';
+            newdiv.style.top = 75 + 80 * j + 'px';
+
+            var img = "memory_card"+index_png+".png";
+            newdiv.innerHTML = '<img src='+img+'>';
+            
+            newdiv.addEventListener('click', function(){Play(this);});
+            document.body.appendChild(newdiv);
+            value_png++;
+        }
+        
+        index++;
+    }
+
+    let TabOb = document.querySelectorAll('div');
+    
+    for (let i = 0; i < num; i++)
+    {
+        TabImg[i] = TabOb[i].innerHTML;
+        TabPosition[i] = [TabOb[i].style.left, TabOb[i].style.top];
+    }
+    Mix_up_position();
+    Hide_all();
+</script>
+</html>
