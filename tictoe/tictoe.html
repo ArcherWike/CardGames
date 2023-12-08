@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body {
+        background-color: rgb(34, 65, 61);
+    }
+    div {
+        position:absolute;
+        width: 100px; height: 100px;
+        border: 1px solid black;
+        background-color: rgb(193, 226, 226);
+        border-radius: 5px;  
+    }
+
+    div img {
+        width: 80px; height: 80px;
+        margin-top: 10px;
+        margin-left: 10px;       
+    }
+
+    #winboard {
+        font-family:'Trebuchet MS', sans-serif;
+        font-size: 25px;
+        font: bold;
+        color:rgb(232, 238, 242); 
+        width: 200px;
+        height: 20;
+        top: 450px;left: 190px; border-style: none;
+        background: none;
+    }
+    #end {
+        display: block; top: 
+        490px;left: 215px; width: 100px; height: 50px; 
+        font-family:'Trebuchet MS', sans-serif;
+        font-size: 15px;
+        background-color: rgb(89, 132, 127); border-radius: 25px; position: absolute;
+        color: rgb(255, 255, 255); 
+    }
+
+    h1 {
+        font-family:'Trebuchet MS', sans-serif;
+        font-size: 55px;
+        font: bold;
+        color:rgb(232, 238, 242); 
+        width: 400px;
+        height: 200;
+        margin-top: 20px;
+        margin-left: 95px;
+        border-style: none;
+        background: none;
+    }
+
+</style>
+<script>
+    let image = ['<img src="circle.png">', '<img src="cross.png">']
+    let active_mode = 0;
+
+    let board = [[0,0,0],
+                 [0,0,0],
+                 [0,0,0]];
+
+    let tabID = [['a00','a01','a02'],
+                 ['a10','a11','a12'],
+                 ['a20','a21','a22']];
+
+    let isGameFinished = false;
+
+    function Clear(){
+        board = [[0,0,0],
+                 [0,0,0],
+                 [0,0,0]];
+
+        winner_img.innerHTML = "";
+        for (let x = 0; x < 3; x++)
+        {
+            for (let y = 0; y < 3; y++)
+            {
+                let currImg = document.getElementById(tabID[x][y]);
+                currImg.innerHTML = "";
+
+            }
+        }   
+        document.getElementById("winboard").innerHTML = "";   
+
+        isGameFinished = false;
+    }
+    
+    function Graj(x)
+    {     
+        if (!isGameFinished)
+        {
+        let row = 0, column = 0; disable = false;
+        for (let a = 0; a < 3; a++)
+        {
+            for (let y = 0; y < 3; y++)
+            {
+                if (tabID[a][y] == x.id) {
+                    if (board[a][y] != 0 )
+                        disable = true;
+                }
+                if (document.getElementById(tabID[a][y]) == x)
+                {
+                    row = a;
+                    column = y;
+                }
+            }
+        }
+
+        if (!disable)
+        {
+            if (active_mode == 0 && x.innerHTML != image[1])
+            {
+                x.innerHTML = image[active_mode];
+                active_mode += 1;
+                board[row][column] = 1;
+                IsWin(1, row, column);
+            }
+            else if (x.innerHTML != image[0])
+            {
+                x.innerHTML = image[active_mode];
+                active_mode = 0;
+                board[row][column] = -1;
+                IsWin(-1, row, column);
+            }
+        }
+        disable = false;
+        }
+    }
+
+    function IsWin(x, row, column)
+    {
+        let sump1 = 0, sump2 = 0;
+        for (let i = 0; i < 3; i++)
+        {
+            let sum = 0, sum2 = 0;
+            for (let y = 0; y < 3; y++)
+            {
+                sum += board[i][y];
+                sum2 += board[y][i];
+                if (i==y)
+                    sump1 += board[i][y];
+                if ((i+y) == 2)
+                    sump2 += board[i][y];
+            }
+
+            if (Math.abs(sum) == 3 || Math.abs(sum2) == 3 || Math.abs(sump1) == 3 || Math.abs(sump2) == 3) {
+                isGameFinished = true;
+                if (x>0) {
+                    document.getElementById("winboard").innerHTML = "Player 1 won!";
+                    winner_img.innerHTML = image[0]
+                }                    
+                else {
+                    document.getElementById("winboard").innerHTML = "Player 2 won!";
+                    winner_img.innerHTML = image[1]
+                }
+            }
+        }
+
+
+    }
+    function handleClickWithDelay(obj) {
+    const delayInMilliseconds = 250;
+    
+    setTimeout(() => Graj(obj), delayInMilliseconds);
+    }
+</script>
+</head>
+<body>
+    <div id="winner_img" style="top: 320px;left: 450px; color: aliceblue; opacity: 0.5;"></div>
+    <div id="winboard"></div>
+    <h1>TIC TAC TOE</h1>
+    <button id="end"></button>
+
+    <script>
+        let newdiv, divIdName, num;
+        num = 3;
+        for (let j = 0; j < num; j++)
+        {
+            for (let i = 0; i < num; i++)
+            {
+                newdiv = document.createElement('div');
+                divIdName = 'a' + j + i;
+                
+                newdiv.setAttribute('id', divIdName);
+                newdiv.style.left = 100 + 110 * i + 'px';
+                newdiv.style.top = 100 + 110 * j + 'px';
+                newdiv.addEventListener('click', function(){handleClickWithDelay(this);});
+                document.body.appendChild(newdiv);
+            }
+        }
+        var button = document.getElementById('end');
+        button.innerHTML = "Start again";
+        button.addEventListener('click', Clear);
+    </script>  
+</body>
+</html>
