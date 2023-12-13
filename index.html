@@ -64,6 +64,18 @@
         margin-bottom: 30px;
         width: 400px;
     }
+
+    .button1:hover
+    {
+        cursor: pointer;
+        
+    }
+    
+    .button1:hover img:hover
+    {
+        filter: brightness(50%);
+        filter: invert(50%);
+    }
 </style>
 
 <body>
@@ -72,13 +84,12 @@
     <h2>~Wiktoria Szczepanska</h2>
 
     <div id="container">
-        <div id="div1"><img src="image/calculator.png" onclick="location.href='calculator.html';"><h3>Kalkulator</h3></div>
-        <div id="div1"><img src="image/tool.png" onclick="location.href='divchange.html';"><h3>Div</h3></div>
-
-        <div id="div1"><img src="image/abc.png" onclick="location.href='Gallery/Gallery.html';"><h3>Galeria</h3></div>
-        <div id="div1"><img src="image/memory.png" onclick="location.href='memory/memory_game.html';"><h3>Memory</h3></div>
-        <div id="div1"><img src="image/tic-tac-toe.png" onclick="location.href='tictoe/tictoe.html';"><h3>TicToe</h3></div>
-        <div id="div1"><img src="image/puzzle.png" onclick="location.href='move/move_game.html';"><h3>Move</h3></div>
+        <div class="button1" id="div1"><img src="image/calculator.png" onclick="location.href='calculator.html';"><h3>Kalkulator</h3></div>
+        <div class="button1" id="div1"><img src="image/tool.png" onclick="location.href='divchange.html';"><h3>Div</h3></div>
+        <div class="button1" id="div1"><img src="image/abc.png" onclick="location.href='Gallery/Gallery.html';"><h3>Galeria</h3></div>
+        <div class="button1" id="div1"><img src="image/memory.png" onclick="location.href='memory/memory_game.html';"><h3>Memory</h3></div>
+        <div class="button1" id="div1"><img src="image/tic-tac-toe.png" onclick="location.href='tictoe/tictoe.html';"><h3>TicToe</h3></div>
+        <div class="button1" id="div1"><img src="image/puzzle.png" onclick="location.href='move/move_game.html';"><h3>Move</h3></div>
     </div>
          
 </body>
