@@ -36,8 +36,8 @@
 		function Graj(x)
 		{
 			let distance = 100;
-			let horizontal_distance = Math.abs((parseInt(x.style.left.replace(/px/,"")) - parseInt(a33.style.left.replace(/px/,""))));
-			let vertical_distance = Math.abs((parseInt(x.style.top.replace(/px/,"")) - parseInt(a33.style.top.replace(/px/,""))))
+			let horizontal_distance = Math.abs((parseInt(x.style.left.replace(/px/,"")) - parseInt(a25.style.left.replace(/px/,""))));
+			let vertical_distance = Math.abs((parseInt(x.style.top.replace(/px/,"")) - parseInt(a25.style.top.replace(/px/,""))))
 			if(horizontal_distance == distance || vertical_distance == distance)
 			{
 				swap_tile(x);
@@ -48,15 +48,15 @@
 		{
 			let save_empty_left = x.style.left;
 			let save_empty_top = x.style.top;
-			if(x.style.top == a33.style.top)
+			if(x.style.top == a25.style.top)
 			{
-				x.style.left = a33.style.left;
-				a33.style.left = save_empty_left;
+				x.style.left = a25.style.left;
+				a25.style.left = save_empty_left;
 			}
-			if(x.style.left == a33.style.left)
+			if(x.style.left == a25.style.left)
 			{
-				x.style.top = a33.style.top;
-				a33.style.top = save_empty_top;
+				x.style.top = a25.style.top;
+				a25.style.top = save_empty_top;
 			}
 		}
 
@@ -88,18 +88,18 @@
 	<input type = "button" value = "mieszaj" onclick = "mieszaj()">
 	<h1>Puzzle Game</h1>
 <script>
-	let newdiv, divIdName, size = 4;
+	let newdiv, divIdName, size = 6;
 	let index = 1;
 	for(let i=0; i<size; i++)
 	{
-		for(let j=0; j<size; j++)
+		for(let j=0; j<size-3; j++)
 		{
 			newdiv = document.createElement('div');
 			divIdName = 'a' + j + i;
 			newdiv.setAttribute('id', divIdName);
 			newdiv.style.left = 100+100*i + 'px'
 			newdiv.style.top = 100+100*j + 'px'
-			if (i * j != 9)
+			if (i * j != 10)
 			{
 			newdiv.innerHTML = "<img src = 'images/background_0"+ index + ".png'>";
 			}
