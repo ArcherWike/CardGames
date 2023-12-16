@@ -1,6 +1,6 @@
 # CardGames
  
-##Zaliczenie Aplikacje internetowe Wiktoria Szczepanska
+## Zaliczenie Aplikacje internetowe Wiktoria Szczepanska
 
 Games:
 - TicToe
